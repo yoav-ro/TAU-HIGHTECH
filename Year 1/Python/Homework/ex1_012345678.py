@@ -31,15 +31,24 @@ else:
 #########################################
 # Question 4 - do not delete this comment
 #########################################
-# a = ??? # Replace ??? with a int of your choice.
-# b = ??? # Replace ??? with a int of your choice.
-# c = ??? # Replace ??? with a int of your choice.
+a = 2  # Replace ??? with a int of your choice.
+b = 9  # Replace ??? with a int of your choice.
+c = 8  # Replace ??? with a int of your choice.
 # Write the rest of the code for question 4 below here.
-
+print((a * b) ** (1 / c))
+print((b**a) ** (1 / c))
+print((b / a) - (c / a))
 
 #########################################
 # Question 5 - do not delete this comment
 #########################################
-# text = ??? # Replace ??? with a string of your choice.
-# copies = ??? # Replace ??? with a int of your choice.
+text = "Python is fun"  # Replace ??? with a string of your choice.
+copies = 2  # Replace ??? with a int of your choice.
 # Write the rest of the code for question 5 below here.
+str1 = text[1::2].upper()
+str2 = text[::2].lower()
+new_str = str1 + str2
+if copies > 0:
+    print(new_str * copies)
+else:
+    print("Invalid Input!!!")
