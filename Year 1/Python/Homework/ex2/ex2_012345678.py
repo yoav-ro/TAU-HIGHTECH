@@ -4,24 +4,24 @@
 #########################################
 # Question 1 - do not delete this comment
 #########################################
-# str1 = "abcfefgcba"  # Replace ??? with a string
-# res = True
-# if len(str1) % 2 != 0:
-#     res = False
-# firstThree = str1[0:3]
-# if (
-#     str1[0] != str1[len(str1) - 1]
-#     and str1[1] != str1[len(str1) - 2]
-#     and str1[2] != str1[len(str1) - 3]
-# ):
-#     res = False
-# if str1[3] != "F" and str1[3] != "f":
-#     res = False
+str1 = "abcfefgcba"  # Replace ??? with a string
+res = True
+if len(str1) % 2 != 0:
+    res = False
+firstThree = str1[0:3]
+if (
+    str1[0] != str1[len(str1) - 1]
+    and str1[1] != str1[len(str1) - 2]
+    and str1[2] != str1[len(str1) - 3]
+):
+    res = False
+if str1[3] != "F" and str1[3] != "f":
+    res = False
 
-# if res:
-#     print("Yes")
-# else:
-#     print("No")
+if res:
+    print("Yes")
+else:
+    print("No")
 
 # Write the rest of the code for question 1 below here.
 
@@ -43,8 +43,17 @@ print(ret)
 #########################################
 # Question 3 - do not delete this comment
 #########################################
-# C = ??? # Replace ??? with a list of numbers (int/float).
-
+C = [3, 1, 10, 21, 2, 2]  # Replace ??? with a list of numbers (int/float).
+retSum = 1
+if len(C) == 1:
+    print(C[0])
+elif len(C) != 0:
+    for idx, num in enumerate(C):
+        if idx != len(C) - 1:
+            retSum*=(num + C[idx + 1])
+    print(retSum)
+else:
+    print(0)
 # Write the rest of the code for question 3 below here.
 
 
