@@ -91,11 +91,16 @@ print(printListWhile)
 #########################################
 # Write the code for question 5 below here.
 my_string = "abaadddefggg"  # Replace ??? with a string
-k = 1  # Replace ??? with a positive int.
-lastGoodChar = ""
+k = 9  # Replace ??? with a positive int.
+sameCharCount = 0
 for i, char in enumerate(my_string):
     if i == 0:
-        lastGoodChar = char
-    elif i + 1 == k:
-        print(lastGoodChar * k)
+        sameCharCount = 1
+    elif i == len(my_string) - 2:
+        print("Didn't find a substring of length " +str(k))
+        break
+    elif char == my_string[i - 1]:
+        sameCharCount += 1
+    if sameCharCount == k:
+        print("For length %s ,found the substring %s" %(k, char*k))
         break
