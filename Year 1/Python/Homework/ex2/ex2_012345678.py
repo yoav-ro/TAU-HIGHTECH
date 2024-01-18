@@ -5,6 +5,7 @@
 # Question 1 - do not delete this comment
 #########################################
 str1 = "abcfefgcba"  # Replace ??? with a string
+# Write the rest of the code for question 1 below here.
 res = True
 if len(str1) % 2 != 0:
     res = False
@@ -22,8 +23,6 @@ if res:
     print("Yes")
 else:
     print("No")
-
-# Write the rest of the code for question 1 below here.
 
 
 #########################################
@@ -44,33 +43,59 @@ print(ret)
 # Question 3 - do not delete this comment
 #########################################
 C = [3, 1, 10, 21, 2, 2]  # Replace ??? with a list of numbers (int/float).
+# Write the rest of the code for question 3 below here.
 retSum = 1
 if len(C) == 1:
     print(C[0])
 elif len(C) != 0:
     for idx, num in enumerate(C):
         if idx != len(C) - 1:
-            retSum*=(num + C[idx + 1])
+            retSum *= num + C[idx + 1]
     print(retSum)
 else:
     print(0)
-# Write the rest of the code for question 3 below here.
-
 
 #########################################
 # Question 4 - do not delete this comment
 #########################################
-# D = ??? # Replace ??? with a list of numbers (int/float).
-# E = ??? # Replace ??? with a list of numbers (int/float).
-
-
+D = [0, 2, 3, 11, 2]  # Replace ??? with a list of numbers (int/float).
+E = [12, 2, 10, 3, 7, 4]  # ??? with a list of numbers (int/float).
 # Write the rest of the code for question 4 below here.
+dCountFor = 0
+dCountWhile = 0
+printListFor = []
+printListWhile = []
+# For loop solution
+for index, numD in enumerate(D):
+    dCountFor += numD
+dAvgFor = dCountFor / len(D)
+for index, numE in enumerate(E):
+    if numE > dAvgFor:
+        printListFor.append(index)
 
+# While loop solution
+dInitLen = len(D)
+while len(D) > 0:
+    dCountWhile += D.pop()
+dAvgWhile = dCountWhile / dInitLen
+i = 0
+while i < len(E):
+    if E[i] > dAvgWhile:
+        printListWhile.append(i)
+    i += 1
+print(printListFor)
+print(printListWhile)
 
 #########################################
 # Question 5 - do not delete this comment
 #########################################
-# my_string = ??? # Replace ??? with a string
-# k = ??? # Replace ??? with a positive int.
-
 # Write the code for question 5 below here.
+my_string = "abaadddefggg"  # Replace ??? with a string
+k = 1  # Replace ??? with a positive int.
+lastGoodChar = ""
+for i, char in enumerate(my_string):
+    if i == 0:
+        lastGoodChar = char
+    elif i + 1 == k:
+        print(lastGoodChar * k)
+        break
