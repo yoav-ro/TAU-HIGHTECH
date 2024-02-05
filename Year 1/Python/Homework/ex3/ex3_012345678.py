@@ -30,6 +30,7 @@ def first_upper_str(lst2):
         elif index == len(lst2) - 1:
             return -1
 
+
 print(first_upper_str([1, 2, 3, 55, "FF", 11, False]))
 print(first_upper_str([]))
 print(first_upper_str([1, 2, 3, 55, "FF ", 11, False]))
@@ -39,11 +40,31 @@ print(first_upper_str([1, 2, 3, 55, "aBCD", 11, False]))
 #########################################
 # Question 3 - do not delete this comment
 #########################################
-# def drop_duplicates(lst3):
-# Write the rest of the code for question 3a below here.
-# def drop_duplicates_in_place(lst3):
-# Write the rest of the code for question 3b below here.
+def drop_duplicates(lst3):
+    # Write the rest of the code for question 3a below here.
+    filteredList = []
+    for item in lst3:
+        if filteredList.count(item) == 0:
+            filteredList.append(item)
 
+    return filteredList
+
+
+print(drop_duplicates([1, 2, 3, 3, 4, 2, 5, 6, 6]))
+
+
+def drop_duplicates_in_place(lst3):
+    # Write the rest of the code for question 3b below here.
+    for index, item in enumerate(lst3):
+        if lst3.count(item) > 1:
+            for indexToPop, itemPopScan in enumerate(lst3):
+                if item == itemPopScan and indexToPop != index:
+                    lst3.pop(indexToPop)
+
+    print(lst3)
+
+
+print(drop_duplicates_in_place([1, 2, 3, 3, 4, 2, 5, 6, 6]))
 
 #########################################
 # Question 4 - do not delete this comment
