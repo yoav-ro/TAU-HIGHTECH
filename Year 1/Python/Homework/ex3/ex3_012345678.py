@@ -66,12 +66,29 @@ def drop_duplicates_in_place(lst3):
 
 print(drop_duplicates_in_place([1, 2, 3, 3, 4, 2, 5, 6, 6]))
 
+
 #########################################
 # Question 4 - do not delete this comment
 #########################################
-# def is_contain(lst4, lst5):
-# Write the rest of the code for question 4 below here.
+def is_contain(lst4, lst5):
+    # Write the rest of the code for question 4 below here.
+    if len(lst5) == 0:
+        return lst5
+    resList = []
+    for index5, item5 in enumerate(lst5):
+        if lst4.count(item5) == 0:
+            resList.append(-1)
+        for index4, item4 in enumerate(lst4):
+            if item5 == item4:
+                if lst4.count(item5) >= 1: #NEED TO REMOVE DOUBLE CHECKS FOR DUPLICATES IN LST4
+                    resList.append(lst4.index(item5))
 
+    return resList
+
+
+lst4 = [1, 2, 4, 2, 7, 9, 12]
+lst5 = [0, 2, 4, 11, 2, 21, 12, 13]
+print(is_contain(lst4, lst5))
 
 #########################################
 # Question 5 - do not delete this comment
