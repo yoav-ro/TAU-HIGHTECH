@@ -75,19 +75,25 @@ def is_contain(lst4, lst5):
     if len(lst5) == 0:
         return lst5
     resList = []
-    for index5, item5 in enumerate(lst5):
+    for item5 in lst5:
         if lst4.count(item5) == 0:
             resList.append(-1)
-        for index4, item4 in enumerate(lst4):
-            if item5 == item4:
-                if lst4.count(item5) >= 1: #NEED TO REMOVE DOUBLE CHECKS FOR DUPLICATES IN LST4
-                    resList.append(lst4.index(item5))
+        else:
+            for item4 in lst4:
+                if item5 == item4:
+                    if lst4.count(item5) >= 1:
+                        resList.append(lst4.index(item5))
+                        break
 
     return resList
 
 
 lst4 = [1, 2, 4, 2, 7, 9, 12]
 lst5 = [0, 2, 4, 11, 2, 21, 12, 13]
+# lst4 = [] 
+# lst5 = [0,2,4,11,2,21,12,13]
+# lst4 = [1,2,5,2,31,2,4,6] 
+# lst5 = [] 
 print(is_contain(lst4, lst5))
 
 #########################################
