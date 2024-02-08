@@ -125,8 +125,28 @@ mat2 = [[10, 100, 1000], [20, 30, 40], [-10, -100, -1000]]
 # mat2 = [[10,100], [20,30], [-10, -100]]
 print(mul_elementwise(mat1, mat2))
 
+
 #########################################
 # Question 6 - do not delete this comment
 #########################################
-# def mat_mul_vec(mat3, vec):
 # Write the rest of the code for question 6 below here.
+def mat_mul_vec(mat3, vec):
+    if len(mat3[0]) != len(vec):
+        return "Can't multiply mat with shape (%s , %s) and a vector with length %s" % (
+            len(mat3),
+            len(mat3[0]),
+            len(vec),
+        )
+    resVec = []
+    for i, matRow in enumerate(mat3):
+        vecSum = 0
+        for j, matCol in enumerate(mat3[i]):
+            vecSum += mat3[i][j] * vec[j]
+        resVec.append(vecSum)
+    return resVec
+
+mat3 = [[1, 1], [2, 2], [3, 3], [4, 4]]
+vec = [10, 100]
+# mat3 = [[1,1],[2,2],[3,3],[4,4]]
+# vec = [10, 100, 1000, 10000]
+print(mat_mul_vec(mat3, vec))
