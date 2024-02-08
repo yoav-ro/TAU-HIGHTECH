@@ -90,18 +90,40 @@ def is_contain(lst4, lst5):
 
 lst4 = [1, 2, 4, 2, 7, 9, 12]
 lst5 = [0, 2, 4, 11, 2, 21, 12, 13]
-# lst4 = [] 
+# lst4 = []
 # lst5 = [0,2,4,11,2,21,12,13]
-# lst4 = [1,2,5,2,31,2,4,6] 
-# lst5 = [] 
+# lst4 = [1,2,5,2,31,2,4,6]
+# lst5 = []
 print(is_contain(lst4, lst5))
+
 
 #########################################
 # Question 5 - do not delete this comment
 #########################################
-# def mul_elementwise(mat1, mat2):
-# Write the rest of the code for question 5 below here.
+def mul_elementwise(mat1, mat2):
+    # Write the rest of the code for question 5 below here.
+    resMat = []
+    if len(mat1) != len(mat2) or len(mat1[0]) != len(mat2[2]):
+        return (
+            "Can't multiply elementwise mat with shape (%s , %s) and mat with shape (%s , %s)"
+            % (len(mat1[0]), len(mat2[0]), len(mat1), len(mat2))
+        )
+    else:
+        for i, row in enumerate(mat1):
+            resRow = []
+            for j, cell in enumerate(mat1[i]):
+                resRow.append(mat1[i][j] * mat2[i][j])
+            resMat.append(resRow)
+    return resMat
 
+
+mat1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+mat2 = [[10, 100, 1000], [20, 30, 40], [-10, -100, -1000]]
+# mat1 = [[1,2,3], [4,5,6], [7,8,9]]
+# mat2 = [[1,1,1], [2,2,2]]
+# mat1 = [[1,2,3], [4,5,6], [7,8,9]]
+# mat2 = [[10,100], [20,30], [-10, -100]]
+print(mul_elementwise(mat1, mat2))
 
 #########################################
 # Question 6 - do not delete this comment
