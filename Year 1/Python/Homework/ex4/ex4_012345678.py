@@ -34,9 +34,46 @@ def lists_to_complex_dict(names, dates):
 #########################################
 # Question 3 - do not delete this comment
 #########################################
-# def find_substring_location(s, k):
-# Write the rest of the code for question 3a below here.
+def find_substring_location(s, k):
+    # Write the rest of the code for question 3a below here.
+    strCopy = str(s)
+    result = [{}]
+    for i, char in enumerate(strCopy):
+        if (i + k) < len(s):
+            currSub = s[i : i + k]
+            print(currSub)
+            result[0][currSub] = s.count(
+                currSub
+            )  # bug! The python "count" function doesnt count overlaps (counting "cc" in "cccc" only returns 2)
 
+    result.append(max(result[0], key=result[0].get))
+
+    return result
+
+
+def countSubStrings(mainStr, subStr):
+    subCount = 0
+    for i, char in enumerate(mainStr):
+        if (i + len(subStr)) < len(mainStr):
+            for j, subChar in enumerate(subStr):
+                if mainStr[i] != subStr[j]:
+                    continue
+                elif j == len(subStr):
+                    subCount += 1
+    return subCount
+
+
+print(countSubStrings("cccc", "cc"))
+
+# txt = "abdsfabababsfasf"
+# res = find_substring_location(txt, 1)
+# print(res[0])
+# print(res[1])
+
+txt = "abcabcbaaaccccscscscffgf"
+res = find_substring_location(txt, 2)
+print(res[0])
+print(res[1])
 
 #########################################
 # Question 4 - do not delete this comment
