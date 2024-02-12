@@ -11,11 +11,24 @@ def lists_to_simple_dict(names, dates):
         covidTest[name] = dates[i]
     return covidTest
 
+
 # #########################################
 # Question 2 - do not delete this comment
 #########################################
-# def lists_to_complex_dict(names, dates):
-# Write the rest of the code for question 2 below here.
+def lists_to_complex_dict(names, dates):
+    # Write the rest of the code for question 2 below here.
+    covidTest = {}
+    for i, name in enumerate(names):
+        if name not in covidTest:
+            covidTest[name] = dates[i]
+        else:
+            if dates[i][0] > covidTest[name][0]:  # Year comparison
+                covidTest[name] = dates[i]
+            elif dates[i][1] > covidTest[name][1]:  # If year is same, month comparison
+                covidTest[name] = dates[i]
+            elif dates[i][2] > covidTest[name][2]:  # If month is same, day comparison
+                covidTest[name] = dates[i]
+    return covidTest
 
 
 #########################################
