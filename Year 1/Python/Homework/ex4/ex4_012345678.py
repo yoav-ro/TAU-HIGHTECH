@@ -41,29 +41,26 @@ def find_substring_location(s, k):
     for i, char in enumerate(strCopy):
         if (i + k) < len(s):
             currSub = s[i : i + k]
-            print(currSub)
-            result[0][currSub] = s.count(
-                currSub
-            )  # bug! The python "count" function doesnt count overlaps (counting "cc" in "cccc" only returns 2)
+            result[0][currSub] = countSubStrings(s, currSub)
 
     result.append(max(result[0], key=result[0].get))
 
     return result
 
 
-def countSubStrings(mainStr, subStr):
+def countSubStrings(mainStr, subStr): # A helper function to count substring within a string inculing overlaps
     subCount = 0
     for i, char in enumerate(mainStr):
-        if (i + len(subStr)) < len(mainStr):
-            for j, subChar in enumerate(subStr):
-                if mainStr[i] != subStr[j]:
-                    continue
-                elif j == len(subStr):
-                    subCount += 1
+        if (i + len(subStr)) <= len(mainStr):
+            currSub = mainStr[i : i + len(subStr)]
+            if currSub == subStr:
+                subCount += 1
+        else:
+            break
     return subCount
 
 
-print(countSubStrings("cccc", "cc"))
+# print(countSubStrings("ccccc", "cc"))
 
 # txt = "abdsfabababsfasf"
 # res = find_substring_location(txt, 1)
