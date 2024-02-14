@@ -48,7 +48,9 @@ def find_substring_location(s, k):
     return result
 
 
-def countSubStrings(mainStr, subStr): # A helper function to count substring within a string inculing overlaps
+def countSubStrings(
+    mainStr, subStr
+):  # A helper function to count substring within a string inculing overlaps
     subCount = 0
     for i, char in enumerate(mainStr):
         if (i + len(subStr)) <= len(mainStr):
@@ -60,20 +62,15 @@ def countSubStrings(mainStr, subStr): # A helper function to count substring wit
     return subCount
 
 
-# print(countSubStrings("ccccc", "cc"))
-
-# txt = "abdsfabababsfasf"
-# res = find_substring_location(txt, 1)
-# print(res[0])
-# print(res[1])
-
-txt = "abcabcbaaaccccscscscffgf"
-res = find_substring_location(txt, 2)
-print(res[0])
-print(res[1])
-
 #########################################
 # Question 4 - do not delete this comment
 #########################################de
-# def mul_sparse_matrices(d1, d2):
-# Write the rest of the code for question 4 below here.
+def mul_sparse_matrices(d1, d2):
+    # Write the rest of the code for question 4 below here.
+    resDict = {}
+    for d1Cell in d1:
+        for d2Cell in d2:
+            if d1Cell == d2Cell:
+                resDict[d1Cell] = d1[d1Cell] * d2[d1Cell]
+
+    return resDict
