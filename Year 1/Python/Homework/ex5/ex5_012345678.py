@@ -7,7 +7,10 @@
 def mean_nums(file):
     # Write the rest of the code for question 1 below here.
     path = "Year 1\Python\Homework\ex5"
-    f = open(path + "/" + file, "r")
+    try:
+        f = open(path + "/" + file, "r")
+    except FileNotFoundError:
+        return "File '%s' does not exist!" % file
     numList = f.read().split(" ")
     return sum([(int)(num) for num in numList]) / len(numList)
 
