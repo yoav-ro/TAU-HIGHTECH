@@ -21,4 +21,20 @@ def count2(mainStr, subStr):
         if mainStr[i : i + len(subStr)] == subStr
     )
 
-print(count2("cccc", "cc"))
+
+# print(count2("cccc", "cc"))
+
+
+def subListSum(numList, target):
+    print(numList, target)
+    if target == 0:
+        return True
+    elif len(numList) == 0:
+        return False
+    else:
+        option1 = subListSum(numList[:-1], target - numList[-1])
+        option2 = subListSum(numList[:-1], target)
+    return option1 or option2
+
+
+print(subListSum([-5,0,-5,5,7,-1], 1))

@@ -1,12 +1,13 @@
 # Exercise 5: Python Programming
 
+path = "Year 1\Python\Homework\ex5/"
+
 
 #########################################
 # Question 1 - do not delete this comment
 #########################################
 def mean_nums(file):
     # Write the rest of the code for question 1 below here.
-    path = "Year 1\Python\Homework\ex5"
     try:
         f = open(path + "/" + file, "r")
     except FileNotFoundError:
@@ -15,19 +16,53 @@ def mean_nums(file):
     return sum([(int)(num) for num in numList]) / len(numList)
 
 
-print(mean_nums("q1.txt"))
+# print(mean_nums("q1.txt"))
+
 
 #########################################
 # Question 2 - do not delete this comment
 #########################################
-# def copy_long_words(infile, outfile, k):
-# Write the rest of the code for question 2 below here.
+def copy_long_words(infile, outfile, k):
+    # Write the rest of the code for question 2 below here.
+    initFile = open(path + "/" + infile, "r")
+    wordsList = initFile.read().split()
+    validWords = []
+    for word in wordsList:
+        if len(word) >= k:
+            validWords.append(word)
+    if len(validWords) == 0:
+        open("outfile.txt", "x")
+    else:
+        newFile = open(path + outfile, "x")
+        for word in validWords:
+            newFile.write(word + "\n")
+
 
 #########################################
 # Question 3 - do not delete this comment
 #########################################
-# def get_x_freqs(infile, outfile, x):
-# Write the rest of the code for question 3 below here.
+def get_x_freqs(infile, outfile, x):
+    # Write the rest of the code for question 3 below here.
+    if len(infile) == 0 or len(outfile) == 0:
+        raise ValueError("Invalid file name")
+    initFile = open(path + "/" + infile, "r")
+    wordsList = initFile.read().split()
+    wordsDir = {}
+    for word in wordsList:
+        if word in wordsDir:
+            wordsDir[word] += 1
+        else:
+            wordsDir[word] = 1
+
+    sordtedDir = dict(sorted(wordsDir.items(), key=lambda word: word[1], reverse=True))
+    newFile = open(path + outfile, "x")
+    wordCount = 0
+    for word in sordtedDir:
+        if wordCount < x:
+            newFile.write("%s %s" % (word, sordtedDir[word]) + "\n")
+            wordCount += 1
+
+get_x_freqs("q3.txt", "q3_out.txt", 3)
 
 #########################################
 # Question 4 - do not delete this comment
