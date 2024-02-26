@@ -62,13 +62,38 @@ def get_x_freqs(infile, outfile, x):
             newFile.write("%s %s" % (word, sordtedDir[word]) + "\n")
             wordCount += 1
 
-get_x_freqs("q3.txt", "q3_out.txt", 3)
 
 #########################################
 # Question 4 - do not delete this comment
 #########################################
-# def decode(in_file, out_file):
-# Write the rest of the code for question 4 below here.
+def decode(in_file, out_file):
+    # Write the rest of the code for question 4 below here.
+    initFile = open(path + "/" + in_file, "r")
+    wordsList = initFile.read().split()
+    decodedWords = []
+    for word in wordsList:
+        decWord = ""
+        for char in word:
+            try:
+                if ord(char):
+                    charASCII = ord(char)
+                    decodedChar = chr(charASCII)
+                    if decodedChar == "z":
+                        decWord.join("a")
+                    elif decodedChar == "Z":
+                        decWord.join("A")
+                    elif (charASCII >= 65 and charASCII < 90) or (
+                        charASCII >= 97 and charASCII < 122
+                    ):
+                        decWord.join(ord(charASCII + 1))
+
+            finally:
+                print(decWord)
+                continue
+        print(decWord)
+
+
+decode("q4.txt", "test")
 
 #########################################
 # Question 5 - do not delete this comment
