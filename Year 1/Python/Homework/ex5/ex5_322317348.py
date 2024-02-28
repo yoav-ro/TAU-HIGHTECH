@@ -68,32 +68,34 @@ def get_x_freqs(infile, outfile, x):
 #########################################
 def decode(in_file, out_file):
     # Write the rest of the code for question 4 below here.
-    initFile = open(path + "/" + in_file, "r")
-    wordsList = initFile.read().split()
-    decodedWords = []
-    for word in wordsList:
-        decWord = ""
-        for char in word:
-            try:
-                if ord(char):
-                    charASCII = ord(char)
-                    decodedChar = chr(charASCII)
-                    if decodedChar == "z":
-                        decWord.join("a")
-                    elif decodedChar == "Z":
-                        decWord.join("A")
-                    elif (charASCII >= 65 and charASCII < 90) or (
-                        charASCII >= 97 and charASCII < 122
-                    ):
-                        decWord.join(ord(charASCII + 1))
+    # Todo- check for line breaks and write new file
+    try:
+        initFile = open(path + "/" + in_file, "r")
+        wordsList = initFile.read().split()
+        decodedWords = []
+        for word in wordsList:
+            decWord = ""
+            for char in word:
+                charASCII = ord(char)
+                decodedChar = chr(charASCII)
+                if decodedChar == "z":
+                    decWord = decWord + "a"
+                elif decodedChar == "Z":
+                    decWord = decWord + "A"
+                elif (charASCII >= 65 and charASCII < 90) or (
+                    charASCII >= 97 and charASCII < 122
+                ):
+                    decWord = decWord + chr(charASCII + 1)
+                else:
+                    decWord = decWord + char
+            decodedWords.append(decWord)
+    except IOError:
+        raise IOError("Can't decipher file due to an IO Error")
 
-            finally:
-                print(decWord)
-                continue
-        print(decWord)
+    print(decodedWords)
 
 
-decode("q4.txt", "test")
+decode("q4asda.txt", "test")
 
 #########################################
 # Question 5 - do not delete this comment
