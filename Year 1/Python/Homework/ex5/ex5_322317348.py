@@ -86,18 +86,43 @@ def decode(in_file, out_file):
         newFile.write(decodedTtext)
 
     except IOError:
-        raise IOError("Can't decipher file due to an IO Error")
+        print("Can't decipher file due to an IO Error")
     finally:
         initFile.close()
         newFile.close()
 
     print(decodedTtext)
 
+
 #########################################
 # Question 5 - do not delete this comment
 #########################################
-# def process_contacts(contacts_file):
-# Write the rest of the code for question 5 below here.
+def process_contacts(contacts_file):
+    # Write the rest of the code for question 5 below here.
+    try:
+        csvFile = open(path + "/" + contacts_file, "r")
+        retDict = {}
+        dataByLines = csvFile.readlines()
+        for personData in dataByLines:
+            if personData[0][0] == "#":
+                continue
+            personDataList = personData.split(",")
+            if "" in personDataList:
+                raise ValueError("Invalid input file")
+            personName = personDataList[0].strip() + " " + personDataList[1].strip()
+            personCity = personDataList[3].strip()
+            if personCity not in retDict:
+                retDict[personCity] = [personName]
+            elif retDict[personCity].count(personName) == 0:
+                retDict[personCity].append(personName)
+        return retDict
+    except IOError:
+        print("IO Error encountered")
+        csvFile.close()
+        return {}
+
+# print(process_contacts("q5_good.csv"))
+
 
 #########################################
 # Question 6 - do not delete this comment
