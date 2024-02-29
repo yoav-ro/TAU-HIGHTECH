@@ -8,10 +8,7 @@ path = "Year 1\Python\Homework\ex5/"
 #########################################
 def mean_nums(file):
     # Write the rest of the code for question 1 below here.
-    try:
-        f = open(path + "/" + file, "r")
-    except FileNotFoundError:
-        return "File '%s' does not exist!" % file
+    f = open(path + "/" + file, "r")
     numList = f.read().split(" ")
     return sum([(int)(num) for num in numList]) / len(numList)
 
@@ -85,13 +82,16 @@ def decode(in_file, out_file):
                 decodedTtext = decodedTtext + chr(charASCII + 1)
             else:
                 decodedTtext = decodedTtext + char
+        newFile = open(path + out_file, "x")
+        newFile.write(decodedTtext)
+
     except IOError:
         raise IOError("Can't decipher file due to an IO Error")
+    finally:
+        initFile.close()
+        newFile.close()
 
     print(decodedTtext)
-
-
-decode("q4.txt", "test")
 
 #########################################
 # Question 5 - do not delete this comment
