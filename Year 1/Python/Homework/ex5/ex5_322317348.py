@@ -1,7 +1,6 @@
 # Exercise 5: Python Programming
 
-path = "Year 1\Python\Homework\ex5/"
-
+path = "Year 1\Python\Homework\ex5/"  # Using this path through the assinment to get the correct file path
 
 #########################################
 # Question 1 - do not delete this comment
@@ -11,10 +10,6 @@ def mean_nums(file):
     f = open(path + "/" + file, "r")
     numList = f.read().split(" ")
     return sum([(int)(num) for num in numList]) / len(numList)
-
-
-# print(mean_nums("q1.txt"))
-
 
 #########################################
 # Question 2 - do not delete this comment
@@ -33,7 +28,6 @@ def copy_long_words(infile, outfile, k):
         newFile = open(path + outfile, "x")
         for word in validWords:
             newFile.write(word + "\n")
-
 
 #########################################
 # Question 3 - do not delete this comment
@@ -59,7 +53,6 @@ def get_x_freqs(infile, outfile, x):
             newFile.write("%s %s" % (word, sordtedDir[word]) + "\n")
             wordCount += 1
 
-
 #########################################
 # Question 4 - do not delete this comment
 #########################################
@@ -84,15 +77,14 @@ def decode(in_file, out_file):
                 decodedTtext = decodedTtext + char
         newFile = open(path + out_file, "x")
         newFile.write(decodedTtext)
-
+        return
+    
     except IOError:
         print("Can't decipher file due to an IO Error")
     finally:
         initFile.close()
         newFile.close()
-
-    print(decodedTtext)
-
+        return
 
 #########################################
 # Question 5 - do not delete this comment
@@ -121,10 +113,6 @@ def process_contacts(contacts_file):
         csvFile.close()
         return {}
 
-
-# print(process_contacts("q5_good.csv"))
-
-
 #########################################
 # Question 6 - do not delete this comment
 #########################################
@@ -134,6 +122,9 @@ def get_covid_cases_by_date(filename, date):
         csvFile = open(path + "/" + filename, "r", encoding="UTF-8")
         dataList = csvFile.readlines()[1:]
         dataByDate = list(filter(lambda item: item.split(",")[3] == date, dataList))
+        if len(dataByDate) == 0:
+            print("No data is available for date " + date)
+            return
         retDict = {}
         for dataRow in dataByDate:
             dataRowList = dataRow.split(",")
@@ -144,14 +135,12 @@ def get_covid_cases_by_date(filename, date):
         sortedData = list(
             sorted(retDict.items(), key=lambda item: item[1], reverse=True)
         )
-        print(sortedData[0])
         count = 0
         while count < 10:
             print("%s   %s" % (sortedData[count][0], sortedData[count][1]))
             count += 1
+        return
     except IOError:
-        print("placeholder")
-        
-
-
-get_covid_cases_by_date("geographic-sum-per-day-ver_00588_2021_only.csv", "2021-01-03")
+        print("IO Error encountered")
+        csvFile.close()
+        return
