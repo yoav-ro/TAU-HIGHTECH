@@ -121,11 +121,37 @@ def process_contacts(contacts_file):
         csvFile.close()
         return {}
 
+
 # print(process_contacts("q5_good.csv"))
 
 
 #########################################
 # Question 6 - do not delete this comment
 #########################################
-# def get_covid_cases_by_date(filename, date):
-# Write the rest of the code for question 6 below here.
+def get_covid_cases_by_date(filename, date):
+    # Write the rest of the code for question 6 below here.
+    try:
+        csvFile = open(path + "/" + filename, "r", encoding="UTF-8")
+        dataList = csvFile.readlines()[1:]
+        dataByDate = list(filter(lambda item: item.split(",")[3] == date, dataList))
+        retDict = {}
+        for dataRow in dataByDate:
+            dataRowList = dataRow.split(",")
+            if dataRowList[2] in retDict and dataRowList[4] != "<15":
+                retDict[dataRowList[2]] += int(dataRowList[4])
+            elif dataRowList[4] != "<15":
+                retDict[dataRowList[2]] = int(dataRowList[4])
+        sortedData = list(
+            sorted(retDict.items(), key=lambda item: item[1], reverse=True)
+        )
+        print(sortedData[0])
+        count = 0
+        while count < 10:
+            print("%s   %s" % (sortedData[count][0], sortedData[count][1]))
+            count += 1
+    except IOError:
+        print("placeholder")
+        
+
+
+get_covid_cases_by_date("geographic-sum-per-day-ver_00588_2021_only.csv", "2021-01-03")
