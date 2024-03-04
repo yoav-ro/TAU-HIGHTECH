@@ -28,13 +28,27 @@ def max_rec(lst):
         return max_rec(lst)
 
 
-print(max_rec([3, 5, 5, 6, 11, 2000, 1]))
-
 #########################################
 # Question 3 - do not delete this comment
 #########################################
-# def can_return_to_earth(weights, W, K)
-# Write the rest of the code for question 3 below here.
+def can_return_to_earth(weights, W, K):
+    # Write the rest of the code for question 3 below here.
+    print(weights, W)
+    weights = list(filter(lambda item: item < K, weights))
+    print(weights)
+    if W == 0 or len(weights) == 0:
+        return True
+    if W < 0:
+        return False
+    if sum(weights) == W:
+        return True
+    if len(weights) == 1 and weights[0] != W:
+        return False
+    return can_return_to_earth(weights, W - weights[0], K)
+
+
+print(can_return_to_earth([5, 2, 6, 4, 2], 8, 3))
+
 
 #########################################
 # Question 4 - do not delete this comment
