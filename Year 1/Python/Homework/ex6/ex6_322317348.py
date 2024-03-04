@@ -14,9 +14,21 @@ def reverse_string(s):
 #########################################
 # Question 2 - do not delete this comment
 #########################################
-# def max_rec(lst):
-# Write the rest of the code for question 2 below here.
+def max_rec(lst):
+    # Write the rest of the code for question 2 below here.
+    if len(lst) < 2:
+        return lst[0]
+    elif len(lst) == 2:
+        if lst[0] > lst[1]:
+            return lst[0]
+        else:
+            return lst[1]
+    elif lst[0] <= lst[1]:
+        lst.pop(0)
+        return max_rec(lst)
 
+
+print(max_rec([3, 5, 5, 6, 11, 2000, 1]))
 
 #########################################
 # Question 3 - do not delete this comment
