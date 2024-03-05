@@ -33,21 +33,19 @@ def max_rec(lst):
 #########################################
 def can_return_to_earth(weights, W, K):
     # Write the rest of the code for question 3 below here.
-    print(weights, W)
-    weights = list(filter(lambda item: item < K, weights))
-    print(weights)
-    if W == 0 or len(weights) == 0:
+    if W == 0:
         return True
-    if W < 0:
+    elif len(weights) == 0:
         return False
-    if sum(weights) == W:
-        return True
-    if len(weights) == 1 and weights[0] != W:
-        return False
-    return can_return_to_earth(weights, W - weights[0], K)
+    elif weights[-1] > K:
+        return can_return_to_earth(weights[:-1], W, K)
+    else:
+        option1 = can_return_to_earth(weights[:-1], W - weights[-1], K)
+        option2 = can_return_to_earth(weights[:-1], W, K)
+    return option1 or option2
 
 
-print(can_return_to_earth([5, 2, 6, 4, 2], 8, 3))
+print(can_return_to_earth([5, 2, 6, 4, 2], 8, 5))
 
 
 #########################################
