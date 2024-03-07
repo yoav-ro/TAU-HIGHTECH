@@ -57,27 +57,18 @@ def is_changeable(n, lst):
         return True
     if n < 2 or n == 3:
         return False
-    option1 = is_changeable(n - 2, [2, *lst])
-    option2 = is_changeable(n - 5, [5, *lst])
-    # option1 = is_changeable(n , is_changeable_add2(lst))
-    # option2 = is_changeable(n , is_changeable_add5(lst))
 
-    return option1 or option2
-
-
-def is_changeable_add2(lst):
-    lst.append(2)
-    return lst
-
-
-def is_changeable_add5(lst):
     lst.append(5)
-    return lst
+    if is_changeable(n - 5, lst):
+        return True
+    lst.pop()
 
+    lst.append(2)
+    if is_changeable(n - 2, lst):
+        return True
+    lst.pop()
 
-testList = []
-print(is_changeable(7.1, testList))
-print(testList)
+    return False
 
 
 #########################################
