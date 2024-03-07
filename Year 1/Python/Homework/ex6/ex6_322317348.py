@@ -74,8 +74,14 @@ def is_changeable(n, lst):
 #########################################
 # Question 5a - do not delete this comment
 #########################################
-# def climb_combinations(n):
-# Write the rest of the code for question 5a below here.
+def climb_combinations(n):
+    # Write the rest of the code for question 5a below here.
+    if n == 0 or n == 1:
+        return 1
+    return climb_combinations(n - 1) + climb_combinations(n - 2)
+
+
+# print(climb_combinations(10))
 
 #########################################
 # Question 5b - do not delete this comment
