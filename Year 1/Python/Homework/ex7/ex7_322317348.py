@@ -18,22 +18,36 @@ class ArtDisplay:
             self.worth = worth
 
     def change_preserving_date(self, new_date):
-        self.date = new_date
+        self.preserving_date = new_date
 
-
-newArt = ArtDisplay("test", "22.1.1990", "painting", "22.2.1990", 1)
-print(newArt.worth)
 
 #########################################
 # Question 2 - do not delete this comment
 #########################################
-# class MuseumSubscriber:
+class MuseumSubscriber:
 
-#     def __init__(self, name, ticket_type, favorites):
+    def __init__(self, name, ticket_type, favorites):
+        self.name = name
+        if ticket_type == "1":
+            self.entries_left = 1
+        elif ticket_type == "5":
+            self.entries_left = 5
+        else:
+            self.entries_left = ticket_type
 
-#     def set_entry(self):
+        self.favorites = favorites
 
-#     def get_favorites(self):
+    def set_entry(self):
+        if type(self.entries_left) == str:
+            print("Welcome subscriber!")
+        elif self.entries_left == 0:
+            print("Please renew your subscription")
+        else:
+            self.entries_left = self.entries_left - 1
+            print("Welcome! %s entries left" % (self.entries_left))
+
+    def get_favorites(self):
+        return self.favorites
 
 
 ##########################################
