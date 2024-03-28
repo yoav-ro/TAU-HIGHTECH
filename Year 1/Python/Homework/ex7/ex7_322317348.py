@@ -21,6 +21,10 @@ class ArtDisplay:
         self.preserving_date = new_date
 
 
+display1 = ArtDisplay("test1", "8.3.2000", "me", "asda", 5)
+display2 = ArtDisplay("test2", "8.3.2000", "me", "asda", 5)
+
+
 #########################################
 # Question 2 - do not delete this comment
 #########################################
@@ -49,30 +53,73 @@ class MuseumSubscriber:
     def get_favorites(self):
         return self.favorites
 
+    ##########################################
+    # Questions 3 - do not delete this comment
+    ##########################################
 
-##########################################
-# Questions 3 - do not delete this comment
-##########################################
 
-# class Museum:
+class Museum:
 
-#     def __init__(self,art_displays):
+    def __init__(self, art_displays):
+        self.art_displays = art_displays
+        self.subscribers = []
 
-#     def get_art_displays(self):
+    def get_art_displays(self):
+        return self.art_displays
 
-#     def get_art_display(self,name):
+    def get_art_display(self, name):
+        return list(filter(lambda display: display.name == name, self.art_displays))[0]
 
-#     def add_art_display(self,artDisplay):
+    def get_subscriber(self, name):
+        print(self.subscribers)
+        return list(filter(lambda subscriber: subscriber.name == name, self.subscribers))[0]
 
-#     def add_subscriber(self, subscriber):
+    def add_art_display(self, artDisplay):
+        self.art_displays.append(artDisplay)
 
-#     def change_preserving_date(self, name , new_date):
+    def add_subscriber(self, subscriber):
+        self.subscribers.append(subscriber)
 
-#     def get_total_worth(self):
+    def change_preserving_date(self, name, new_date):
+        displayToChange = self.get_art_display(name)
+        displayToChange.change_preserving_date(new_date)
+        return None
 
-#     def subscriber_entry(self,name):
+    def get_total_worth(self):
+        worthSum = 0
+        for display in self.art_displays:
+            worthSum += display.worth
+        return worthSum
 
-#     def find_loved_disp(self):
+    def subscriber_entry(self, name):
+        self.get_subscriber(name).set_entry()
+
+    def find_loved_disp(self):
+        loveDict = {display.name: 0 for display in self.art_displays}
+        for sub in self.subscribers:
+            for display in sub.favorites:
+                loveDict[display.name] += 1
+
+        maxLove = max(loveDict.values())
+        resList = []
+
+        for display in loveDict:
+            print(display)
+            if loveDict[display] == maxLove:
+                resList.append(display)
+        print(resList)
+
+
+mymuse = Museum([display1, display2])
+# mymuse.change_preserving_date("test1", "changed")
+sub1 = MuseumSubscriber("yoav", "5", [display1])
+sub2 = MuseumSubscriber("yoav1", "5", [display2])
+sub3 = MuseumSubscriber("yoav2", "5", [display1, display2])
+mymuse.add_subscriber(sub1)
+mymuse.add_subscriber(sub2)
+mymuse.add_subscriber(sub3)
+mymuse.subscriber_entry("yoav")
+mymuse.find_loved_disp()
 
 #########################################
 # Question 4 - do not delete this comment
