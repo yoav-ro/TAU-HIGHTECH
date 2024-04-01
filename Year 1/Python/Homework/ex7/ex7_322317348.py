@@ -72,7 +72,9 @@ class Museum:
 
     def get_subscriber(self, name):
         print(self.subscribers)
-        return list(filter(lambda subscriber: subscriber.name == name, self.subscribers))[0]
+        return list(
+            filter(lambda subscriber: subscriber.name == name, self.subscribers)
+        )[0]
 
     def add_art_display(self, artDisplay):
         self.art_displays.append(artDisplay)
@@ -110,24 +112,49 @@ class Museum:
         print(resList)
 
 
-mymuse = Museum([display1, display2])
-# mymuse.change_preserving_date("test1", "changed")
-sub1 = MuseumSubscriber("yoav", "5", [display1])
-sub2 = MuseumSubscriber("yoav1", "5", [display2])
-sub3 = MuseumSubscriber("yoav2", "5", [display1, display2])
-mymuse.add_subscriber(sub1)
-mymuse.add_subscriber(sub2)
-mymuse.add_subscriber(sub3)
-mymuse.subscriber_entry("yoav")
-mymuse.find_loved_disp()
+# mymuse = Museum([display1, display2])
+# # mymuse.change_preserving_date("test1", "changed")
+# sub1 = MuseumSubscriber("yoav", "5", [display1])
+# sub2 = MuseumSubscriber("yoav1", "5", [display2])
+# sub3 = MuseumSubscriber("yoav2", "5", [display1, display2])
+# mymuse.add_subscriber(sub1)
+# mymuse.add_subscriber(sub2)
+# mymuse.add_subscriber(sub3)
+# mymuse.subscriber_entry("yoav")
+# mymuse.find_loved_disp()
 
 #########################################
 # Question 4 - do not delete this comment
 #########################################
 
-# def create_museum(filename):
+
+def create_museum(filename):
+    path = "Year 1\Python\Homework\ex7"
+    try:
+        f = open(path + "/" + filename, "r")
+        dataRows = f.readlines()
+        artList = []
+        subList = []
+        for row in dataRows:
+            print(row)
+            row.split()
+            print(row)
+            if row[0] == "artDisplay":
+                newDisplay = ArtDisplay(row[1], row[2], row[3], row[4], row[5])
+                artList.append(newDisplay)
+            elif row[0] == "subscriber":
+                newSub = MuseumSubscriber(
+                    row[1], row[2], [artList[row[3]], artList[row[4]], artList[row[5]]]
+                )
+                subList.append(newSub)
+        print(artList)
+        print(subList)
+    except IOError:
+        print("Unable to load %s due to an IO Error" % (filename))
+        f.close()
 
 
+create_museum("museum.csv")
 # use the following code to test your code:
 # museum=create_museum('museum.csv')
 # print (museum)
