@@ -21,10 +21,6 @@ class ArtDisplay:
         self.preserving_date = new_date
 
 
-display1 = ArtDisplay("test1", "8.3.2000", "me", "asda", 5)
-display2 = ArtDisplay("test2", "8.3.2000", "me", "asda", 5)
-
-
 #########################################
 # Question 2 - do not delete this comment
 #########################################
@@ -53,11 +49,10 @@ class MuseumSubscriber:
     def get_favorites(self):
         return self.favorites
 
-    ##########################################
-    # Questions 3 - do not delete this comment
-    ##########################################
 
-
+##########################################
+# Questions 3 - do not delete this comment
+##########################################
 class Museum:
 
     def __init__(self, art_displays):
@@ -71,7 +66,6 @@ class Museum:
         return list(filter(lambda display: display.name == name, self.art_displays))[0]
 
     def get_subscriber(self, name):
-        print(self.subscribers)
         return list(
             filter(lambda subscriber: subscriber.name == name, self.subscribers)
         )[0]
@@ -106,27 +100,14 @@ class Museum:
         resList = []
 
         for display in loveDict:
-            print(display)
             if loveDict[display] == maxLove:
                 resList.append(display)
-        print(resList)
 
-
-# mymuse = Museum([display1, display2])
-# # mymuse.change_preserving_date("test1", "changed")
-# sub1 = MuseumSubscriber("yoav", "5", [display1])
-# sub2 = MuseumSubscriber("yoav1", "5", [display2])
-# sub3 = MuseumSubscriber("yoav2", "5", [display1, display2])
-# mymuse.add_subscriber(sub1)
-# mymuse.add_subscriber(sub2)
-# mymuse.add_subscriber(sub3)
-# mymuse.subscriber_entry("yoav")
-# mymuse.find_loved_disp()
-
+        return resList
+    
 #########################################
 # Question 4 - do not delete this comment
 #########################################
-
 
 def create_museum(filename):
     path = "Year 1\Python\Homework\ex7"
@@ -135,26 +116,28 @@ def create_museum(filename):
         dataRows = f.readlines()
         artList = []
         subList = []
+        totalWorth = 0
         for row in dataRows:
-            print(row)
-            row.split()
-            print(row)
-            if row[0] == "artDisplay":
-                newDisplay = ArtDisplay(row[1], row[2], row[3], row[4], row[5])
+            data = row.split(",")
+            if data[0] == "artDisplay":
+                artWorth = int(data[5])
+                newDisplay = ArtDisplay(data[1], data[2], data[3], data[4], artWorth)
+                totalWorth += artWorth
                 artList.append(newDisplay)
-            elif row[0] == "subscriber":
+            elif data[0] == "subscriber":
                 newSub = MuseumSubscriber(
-                    row[1], row[2], [artList[row[3]], artList[row[4]], artList[row[5]]]
+                    data[1],
+                    data[2],
+                    [
+                        artList[int(data[3]) - 1],
+                        artList[int(data[4]) - 1],
+                        artList[int(data[5]) - 1],
+                    ],
                 )
                 subList.append(newSub)
-        print(artList)
-        print(subList)
+        print("This museum's worth is %s" % totalWorth)
+        return Museum(artList)
+
     except IOError:
         print("Unable to load %s due to an IO Error" % (filename))
         f.close()
-
-
-create_museum("museum.csv")
-# use the following code to test your code:
-# museum=create_museum('museum.csv')
-# print (museum)
