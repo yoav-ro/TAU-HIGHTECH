@@ -4,3 +4,4 @@ exercise_solution.c
 build
 exercise_solution.cp310-win_amd64.pyd
 lib.win-amd64-3.10
+__pycache__
