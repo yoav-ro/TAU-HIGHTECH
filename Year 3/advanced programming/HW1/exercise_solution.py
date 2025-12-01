@@ -2,6 +2,9 @@ import numpy as np
 import cython
 import time
 import random
+import pandas as pd
+import csv
+import re
 
 # Part 1
 
@@ -35,27 +38,8 @@ def func_cython(x_list: cython.int[:]):
 # Cython vectors
 def func_cython_vec(x_list: cython.int[:]):
     vec: cython.int[:] = np.array(x_list)
-
-    lst_legnth: cython.int = vec.shape[0]
-    i: cython.int
-    val: cython.int
-    
-    # Create a NumPy array for the result (allocated in C via NumPy)
-    # dtype must match the cython type (cython.int -> np.int32)
-    res_np = np.zeros(lst_legnth, dtype=np.int32)
-    
-    # Create a typed memoryview on the result array to allow fast C-access during write
-    # This is critical: writing to res_np[i] directly is slower (Python call)
-    # Writing to res_view[i] is fast (C pointer arithmetic)
-    res_view: cython.int[:] = res_np
-
-    # Loop over C index
-    for i in range(lst_legnth):
-        val = vec[i]
-        # Write directly to the memory address of the numpy array
-        res_view[i] = 3 * (val**2) - 2 * val + 5
-        
-    return res_np
+    transform: cython.int[:] = 3 * (vec**2) - 2 * vec + 5
+    return transform.tolist()
 
 def generate_list(n, lower, upper):
     if n < 0:
@@ -65,9 +49,9 @@ def generate_list(n, lower, upper):
 
     return [random.randint(int(lower), int(upper)) for _ in range(n)]
 
-def print_run_time(func, list, func_desc):
+def print_run_time(func, args, func_desc):
     start= time.time()
-    func(list)
+    func(*args)
     end=time.time()
     print("Function %s took %s to run." %(func_desc, round(end-start,5)))
 
@@ -105,4 +89,34 @@ def run_q1():
     print_run_time(func_cython, list5m, "Normal Cython")
     print_run_time(func_cython_vec, list5m, "Cython vectors")
 
-run_q1()
+# run_q1()
+
+# Part 2
+
+# Extract the fist word from each description
+# Using python loop with the re module
+def extract_first_word_using_re(csv_path):
+    first_word_list=[]
+    with open(csv_path) as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            desc= row["description"]
+            match = re.search(r"^\s*(\w+)", desc)
+            if match:
+                first_word_list.append(match.group(1))
+            else:
+                first_word_list.append("")
+
+    return first_word_list
+
+# Using pandas.str.extract with regex
+def extract_first_word_using_pandas_regex(csv_path):
+    df=pd.read_csv(csv_path)
+    return df["description"].str.extract(r"^(\w+)")
+
+def run_q2():
+    path="transactions.csv"
+    print_run_time(extract_first_word_using_re, [path], "extract first word using re")
+    print_run_time(extract_first_word_using_pandas_regex, [path], "extract first word using pandas and regex")
+
+run_q2()
