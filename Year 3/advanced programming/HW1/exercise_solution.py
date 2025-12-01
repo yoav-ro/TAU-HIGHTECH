@@ -114,9 +114,37 @@ def extract_first_word_using_pandas_regex(csv_path):
     df=pd.read_csv(csv_path)
     return df["description"].str.extract(r"^(\w+)")
 
+def get_customer_total_python_loop(csv_path):
+    totals_dict={}
+    with open(csv_path) as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            customer= row["customer_id"]
+            amount=float(row["amount"])
+            if customer in totals_dict:
+                totals_dict[customer] += amount
+            else:
+                totals_dict[customer] = 0.0
+
+    return totals_dict
+
+def get_customer_total_pandas_groupby(csv_path):
+    df=pd.read_csv(csv_path)
+    return df.groupby("customer_id")["amount"].sum()
+
+def get_customer_total_pandas_vectors(csv_path):
+    df=pd.read_csv(csv_path)
+    return df.pivot_table(index="customer_id", values="amount", aggfunc="sum")["amount"].to_dict()
+
+
 def run_q2():
     path="transactions.csv"
+    print("Extracting the first word of the description")
     print_run_time(extract_first_word_using_re, [path], "extract first word using re")
     print_run_time(extract_first_word_using_pandas_regex, [path], "extract first word using pandas and regex")
+    print("Getting the sum of amount spend by customer")
+    print_run_time(get_customer_total_python_loop, [path], "get sums using a python loop")
+    print_run_time(get_customer_total_pandas_groupby, [path], "get sums using pandas and groupby")
+    print_run_time(get_customer_total_pandas_vectors, [path], "get sums using pandas vectorized")
 
 run_q2()
