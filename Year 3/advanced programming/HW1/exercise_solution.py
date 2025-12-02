@@ -63,33 +63,31 @@ def run_q1():
 
     # Test 10k list
     print("Testing a 10k items list:")
-    print_run_time(func_pure_python, list10k, "Pure python loop")
-    print_run_time(func_np_vec, list10k, "Numpy vectors")
-    print_run_time(func_cython, list10k, "Normal Cython")
-    print_run_time(func_cython_vec, list10k, "Cython vectors")
+    print_run_time(func_pure_python, [list10k], "Pure python loop")
+    print_run_time(func_np_vec, [list10k], "Numpy vectors")
+    print_run_time(func_cython, [list10k], "Normal Cython")
+    print_run_time(func_cython_vec, [list10k], "Cython vectors")
 
     # Test 100k list
     print("Testing a 100 k items list:")
-    print_run_time(func_pure_python, list100k, "Pure python loop")
-    print_run_time(func_np_vec, list100k, "Numpy vectors")
-    print_run_time(func_cython, list100k, "Normal Cython")
-    print_run_time(func_cython_vec, list100k, "Cython vectors")
+    print_run_time(func_pure_python, [list100k], "Pure python loop")
+    print_run_time(func_np_vec, [list100k], "Numpy vectors")
+    print_run_time(func_cython, [list100k], "Normal Cython")
+    print_run_time(func_cython_vec, [list100k], "Cython vectors")
 
     # Test 1m list
     print("Testing a 1m items list:")
-    print_run_time(func_pure_python, list1m, "Pure python loop")
-    print_run_time(func_np_vec, list1m, "Numpy vectors")
-    print_run_time(func_cython, list1m, "Normal Cython")
-    print_run_time(func_cython_vec, list1m, "Cython vectors")
+    print_run_time(func_pure_python, [list1m], "Pure python loop")
+    print_run_time(func_np_vec, [list1m], "Numpy vectors")
+    print_run_time(func_cython, [list1m], "Normal Cython")
+    print_run_time(func_cython_vec, [list1m], "Cython vectors")
 
     # Test 5m list
     print("Testing a 5m items list:")
-    print_run_time(func_pure_python, list5m, "Pure python loop")
-    print_run_time(func_np_vec, list5m, "Numpy vectors")
-    print_run_time(func_cython, list5m, "Normal Cython")
-    print_run_time(func_cython_vec, list5m, "Cython vectors")
-
-# run_q1()
+    print_run_time(func_pure_python, [list5m], "Pure python loop")
+    print_run_time(func_np_vec, [list5m], "Numpy vectors")
+    print_run_time(func_cython, [list5m], "Normal Cython")
+    print_run_time(func_cython_vec, [list5m], "Cython vectors")
 
 # Part 2
 
@@ -147,4 +145,11 @@ def run_q2():
     print_run_time(get_customer_total_pandas_groupby, [path], "get sums using pandas and groupby")
     print_run_time(get_customer_total_pandas_vectors, [path], "get sums using pandas vectorized")
 
-run_q2()
+
+def run_hw():
+    print("Q1:")
+    run_q1()
+    print("Q2:")
+    run_q2()
+
+run_hw()
