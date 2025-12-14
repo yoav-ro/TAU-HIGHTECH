@@ -2,7 +2,7 @@ import numpy as np
 from abc import ABC, abstractmethod
 from sklearn.metrics import accuracy_score, f1_score, precision_score
 
-#Q1
+#---Q1---
 class DummyModel:
     def __init__(self):
         self.model = ''
@@ -20,7 +20,7 @@ def eval_f1(y_true, y_pred):
 def eval_precition(y_true, y_pred):
     return precision_score(y_true, y_pred)
 
-# --- 4. The Context (Evaluator) ---
+# Strategy pattern main class
 class ModelEvaluator:
     """
     This class handles the evaluation process. It takes a model and a 
@@ -40,16 +40,11 @@ class ModelEvaluator:
         result = self.strategy(y_true, y_pred)
         return result
 
-if __name__ == "__main__":
-    # Generate random data (100 samples)
-    # X shape: (100 samples)
+def q1_main():
     X = np.random.rand(100) 
     y_true = np.random.randint(0, 2, 100)
-
-    # Initialize the model
     my_model = DummyModel()
 
-    # Initialize the evaluator
     evaluator = ModelEvaluator(my_model)
 
     print("Starting Evaluation:")
@@ -70,3 +65,100 @@ if __name__ == "__main__":
     print(f"Precision: {prec:.4f}")
 
     print("Evaluation Completed.")
+
+
+#---Q2---
+
+import time
+import gc
+import random
+from abc import ABC, abstractmethod
+from datetime import datetime
+
+# Abstract base monitor class for all the next monitors to inherit from, to ensure they all have the "upadate" method
+class CpuMonitor(ABC):
+    @abstractmethod
+    def update(self, usage_percent):
+        pass
+
+class CpuSensor:
+    def __init__(self):
+        self._monitors = []
+        self._cpu_usage = 0
+
+    def attach_monitor(self, monitor: CpuMonitor):
+        if monitor not in self._monitors:
+            self._monitors.append(monitor)
+            print("New monitor attached.")
+
+    def detach_monitor(self, monitor: CpuMonitor):
+        if monitor in self._monitors:
+            self._monitors.remove(monitor)
+            print("A monitor has been removed.")
+
+    def notify(self):
+        for monitor in self._monitors:
+            monitor.update(self._cpu_usage)
+
+    def set_cpu_usage(self, value):
+        print("CPU usage updated.")
+        self._cpu_usage = value
+        self.notify()
+
+
+# Monitor classes
+class LoggingMonitor(CpuMonitor):
+    def __init__(self):
+        self._usage_log = {}
+
+    def update(self, usage_percent):
+        timestamp = datetime.now().strftime("%H:%M:%S")
+        self._usage_log[timestamp] = usage_percent
+
+    def print_log(self):
+        print(f"CPU usage logs: {self._usage_log}")
+
+class HighUsageWarningMonitor(CpuMonitor):
+    def __init__(self, threshold=85):
+        self.threshold = threshold
+
+    def update(self, usage_percent):
+        if usage_percent > self.threshold:
+            print("Warning! CPU usages is too high!")
+
+class GcTriggerMonitor(CpuMonitor):
+    def __init__(self, threshold=90):
+        self.threshold = threshold
+
+    def update(self, usage_percent):
+        if usage_percent > self.threshold:
+            print("CPU usage is too high. Engaging Garbage Collegtion.")
+            gc_count = gc.collect()
+            print(f"Gargage Collection completed. Objects collected: {gc_count}")
+
+
+def q2_main():
+    sensor = CpuSensor()
+
+    logger = LoggingMonitor()
+    warner = HighUsageWarningMonitor()
+    gc_monitor = GcTriggerMonitor()
+
+    sensor.attach_monitor(logger)
+    sensor.attach_monitor(warner)
+    sensor.attach_monitor(gc_monitor)
+
+    # Simpulate differate useage
+    sensor.set_cpu_usage(45)
+    sensor.set_cpu_usage(88)
+    sensor.set_cpu_usage(95)
+
+    # Print LoggingMonitor's results:
+    logger.print_log()
+
+    
+
+if __name__ == "__main__":
+    # q1_main()
+    q2_main()
+    pass
