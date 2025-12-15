@@ -1,0 +1,7 @@
+[File] This goes to a file.
+[File] Polymorphism in action!
+This goes to a file.
+Polymorphism in action!
+This goes to a file.
+This goes to a file.
+Polymorphism in action!

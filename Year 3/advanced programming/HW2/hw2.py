@@ -1,6 +1,8 @@
 import numpy as np
 from abc import ABC, abstractmethod
 from sklearn.metrics import accuracy_score, f1_score, precision_score
+import gc
+from datetime import datetime
 
 #---Q1---
 class DummyModel:
@@ -68,12 +70,6 @@ def q1_main():
 
 
 #---Q2---
-
-import time
-import gc
-import random
-from abc import ABC, abstractmethod
-from datetime import datetime
 
 # Abstract base monitor class for all the next monitors to inherit from, to ensure they all have the "upadate" method
 class CpuMonitor(ABC):
@@ -156,9 +152,61 @@ def q2_main():
     # Print LoggingMonitor's results:
     logger.print_log()
 
+#---Q3---
+
+# Abstract Logger class
+class Logger(ABC):
+    @abstractmethod
+    def log(self, message):
+        pass
+
+# All required logger types
+class ConsoleLogger(Logger):
+    def log(self, message):
+        print(f"[Console] {message}")
+
+class FileLogger(Logger):
+    def __init__(self, path):
+        self.path = path
+
+    def log(self, message):
+        with open(self.path, "a") as f:
+            f.write(f"{message}\n")
+
+class NullLogger(Logger):
+    def log(self):
+        pass
+
+def GetLogger(logger="console_logger"):
+    print(f"logger is {logger}")
+    logger_map={
+        "console": ConsoleLogger,
+        "file": FileLogger,
+        "null": NullLogger
+    }
+
+    if logger not in logger_map:
+        raise ValueError("Logger type doesnt exist")
+    return logger_map[logger]
+
+def q3_main():
+    # File logger config
+    config_file = {"logger_type": "file", "path": "log_file.txt"}
+    logger1 = GetLogger(config_file["logger_type"])(config_file["path"])
+    logger1.log("This goes to a file.")
+
+    # Console logger config
+    config_console = {"logger_type": "console"}
+    logger2 = GetLogger(config_console["logger_type"])()
+    logger2.log("---Printing a message.---")
     
+    # Console and config through the same interface
+    loggers = [logger1, logger2]
+    for logger in loggers:
+        logger.log("Working through the same interface!")
 
 if __name__ == "__main__":
     # q1_main()
-    q2_main()
+    # q2_main()
+    q3_main()
     pass
