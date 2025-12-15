@@ -78,12 +78,12 @@ class CpuSensor:
         self._monitors = []
         self._cpu_usage = 0
 
-    def attach_monitor(self, monitor: CpuMonitor):
+    def attach(self, monitor: CpuMonitor):
         if monitor not in self._monitors:
             self._monitors.append(monitor)
-            print("New monitor attached.")
+            # print("New monitor attached.")
 
-    def detach_monitor(self, monitor: CpuMonitor):
+    def detach(self, monitor: CpuMonitor):
         if monitor in self._monitors:
             self._monitors.remove(monitor)
             print("A monitor has been removed.")
@@ -136,9 +136,9 @@ def q2_main():
     warner = HighUsageWarningMonitor()
     gc_monitor = GcTriggerMonitor()
 
-    sensor.attach_monitor(logger)
-    sensor.attach_monitor(warner)
-    sensor.attach_monitor(gc_monitor)
+    sensor.attach(logger)
+    sensor.attach(warner)
+    sensor.attach(gc_monitor)
 
     # Simpulate differate useage
     sensor.set_cpu_usage(45)
@@ -170,10 +170,10 @@ class FileLogger(Logger):
             f.write(f"{message}\n")
 
 class NullLogger(Logger):
-    def log(self):
+    def log(self, message):
         pass
 
-def GetLogger(logger="console_logger"):
+def GetLogger(logger):
     print(f"logger is {logger}")
     logger_map={
         "console": ConsoleLogger,
@@ -201,8 +201,23 @@ def q3_main():
     for logger in loggers:
         logger.log("Working through the same interface!")
 
+#---Part 2---
+
+#Q4(a)
+def accumulating_monitor_demo(n=10000, report_every=1000): 
+    sensor = CpuSensor() 
+    for i in range(n): 
+        m = LoggingMonitor()     
+        sensor.attach(m) 
+        del m                   
+ 
+        if (i + 1) % report_every == 0: 
+            print(f"[A] After {i+1} attachments → monitor count = {len(sensor._monitors)}") 
+            print("GC counts:", gc.get_count())
+
 if __name__ == "__main__":
     # q1_main()
     # q2_main()
-    q3_main()
+    # q3_main()
+    accumulating_monitor_demo()
     pass
