@@ -24,10 +24,6 @@ def eval_precition(y_true, y_pred):
 
 # Strategy pattern main class
 class ModelEvaluator:
-    """
-    This class handles the evaluation process. It takes a model and a 
-    strategy, keeping them decoupled.
-    """
     def __init__(self, model, strategy=None):
         self.model = model
         self.strategy = strategy
