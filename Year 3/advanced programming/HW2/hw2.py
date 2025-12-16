@@ -81,12 +81,10 @@ class CpuSensor:
     def attach(self, monitor: CpuMonitor):
         if monitor not in self._monitors:
             self._monitors.append(monitor)
-            # print("New monitor attached.")
 
     def detach(self, monitor: CpuMonitor):
         if monitor in self._monitors:
             self._monitors.remove(monitor)
-            print("A monitor has been removed.")
 
     def notify(self):
         for monitor in self._monitors:
@@ -215,9 +213,45 @@ def accumulating_monitor_demo(n=10000, report_every=1000):
             print(f"[A] After {i+1} attachments → monitor count = {len(sensor._monitors)}") 
             print("GC counts:", gc.get_count())
 
+#Q5(b)
+import weakref # If nothing else is using the variable stored here, it will be deleted
+
+class AlternativeCpuSensor:
+    def __init__(self):
+        self._monitors = weakref.WeakSet() # Different syntax from a regular python list
+        self._cpu_usage = 0
+
+    def attach(self, monitor):
+        self._monitors.add(monitor)
+
+    def detach(self, monitor):
+        self._monitors.discard(monitor)
+
+    def notify(self):
+        for monitor in self._monitors:
+            monitor.update(self._cpu_usage)
+
+    def set_cpu_usage(self, value):
+        print("CPU usage updated.")
+        self._cpu_usage = value
+        self.notify()
+
+def vanishing_monitor_demo(n=10000, report_every=1000): 
+    import gc 
+    sensor = AlternativeCpuSensor() 
+    for i in range(n): 
+        m = LoggingMonitor() 
+        sensor.attach(m) 
+        del m 
+ 
+        if (i + 1) % report_every == 0: 
+            print(f"[B] After {i+1} attachments → monitor count = {len(sensor._monitors)}") 
+            print("GC counts:", gc.get_count())
+
 if __name__ == "__main__":
     # q1_main()
     # q2_main()
     # q3_main()
-    accumulating_monitor_demo()
+    # accumulating_monitor_demo()
+    # vanishing_monitor_demo()
     pass
