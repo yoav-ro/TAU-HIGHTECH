@@ -249,9 +249,9 @@ def vanishing_monitor_demo(n=10000, report_every=1000):
             print("GC counts:", gc.get_count())
 
 if __name__ == "__main__":
-    # q1_main()
-    # q2_main()
-    # q3_main()
-    # accumulating_monitor_demo()
-    # vanishing_monitor_demo()
+    q1_main()
+    q2_main()
+    q3_main()
+    accumulating_monitor_demo()
+    vanishing_monitor_demo()
     pass
